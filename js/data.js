@@ -167,7 +167,6 @@ seedData();
 
 
 const DataManager = {
-  // Get all articles (sorted by date descending)
   getArticles(includeDrafts = false) {
     const raw = localStorage.getItem("ha_articles");
     if (!raw) return [];
@@ -175,17 +174,14 @@ const DataManager = {
     if (!includeDrafts) {
       articles = articles.filter(a => a.status === "published");
     }
-    // Sort descending by date
     return articles.sort((a, b) => new Date(b.date) - new Date(a.date));
   },
 
-  // Get single article by ID
   getArticleById(id) {
     const articles = this.getArticles(true);
     return articles.find(a => a.id === id) || null;
   },
 
-  // Add new article
   addArticle(articleData) {
     const articles = this.getArticles(true);
     const newArticle = {
@@ -198,7 +194,6 @@ const DataManager = {
     return newArticle;
   },
 
-  // Update existing article
   updateArticle(id, updatedData) {
     const articles = this.getArticles(true);
     const index = articles.findIndex(a => a.id === id);
@@ -212,7 +207,6 @@ const DataManager = {
     return true;
   },
 
-  // Delete article
   deleteArticle(id) {
     let articles = this.getArticles(true);
     const originalLength = articles.length;
@@ -223,22 +217,18 @@ const DataManager = {
     return true;
   },
 
-  // Filter articles by category
   getArticlesByCategory(category, includeDrafts = false) {
     return this.getArticles(includeDrafts).filter(a => a.category === category);
   },
 
-  // Get recent N articles
   getRecentArticles(limit = 3, includeDrafts = false) {
     return this.getArticles(includeDrafts).slice(0, limit);
   },
 
-  // Get category colors map
   getCategoryColors() {
     return CATEGORY_COLORS;
   },
 
-  // Get categories configuration
   getCategoriesInfo() {
     return CATEGORIES_INFO;
   }

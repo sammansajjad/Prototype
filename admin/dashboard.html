@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <script>
-    // Blocking route guard to prevent flashing of admin contents
+   
     if (localStorage.getItem("ha_admin_session") !== "active") {
       window.location.href = "./login.html";
     }
@@ -15,10 +15,8 @@
 </head>
 <body class="admin-body">
 
-  <!-- Shared Header Navbar (reused via main.js) -->
   <header></header>
 
-  <!-- Admin Sub Navigation Bar -->
   <div class="admin-nav">
     <div class="container admin-nav-container">
       <h2 style="color: #FFFFFF; font-size: 1.4rem;">Administrative Portal</h2>
@@ -26,11 +24,9 @@
     </div>
   </div>
 
-  <!-- Dashboard Container -->
   <main class="container">
     <div class="admin-dashboard-layout">
       
-      <!-- Sidebar -->
       <aside class="admin-sidebar">
         <ul class="admin-sidebar-menu">
           <li>
@@ -53,11 +49,9 @@
         </div>
       </aside>
 
-      <!-- Main Panel -->
       <section class="admin-main" style="padding: 0;">
         <h2 style="font-size: 1.6rem; margin-bottom: 25px; padding: 30px 30px 0;">Project Stories & Articles</h2>
         
-        <!-- Metrics Counters -->
         <div class="admin-metrics" style="padding: 0 30px 20px;">
           <div class="metric-card">
             <div>
@@ -90,7 +84,6 @@
           </div>
         </div>
 
-        <!-- Filter Bar -->
         <div class="admin-actions-bar" style="padding: 0 30px 25px;">
           <div class="search-filters">
             <div style="position: relative; flex-grow: 1;">
@@ -98,7 +91,7 @@
               <span style="position: absolute; left: 12px; top: 12px; color: var(--text-muted); width: 18px; height: 18px;" id="search-icon-holder"></span>
             </div>
             <select id="filter-category" class="form-control" style="width: auto; min-width: 180px;">
-              <!-- Populated dynamically -->
+             
             </select>
             <select id="filter-status" class="form-control" style="width: auto; min-width: 140px;">
               <option value="all">All Status</option>
@@ -112,7 +105,6 @@
           </button>
         </div>
 
-        <!-- Table Listing -->
         <div class="table-responsive" style="padding: 0 30px 30px;">
           <table class="admin-table">
             <thead>
@@ -125,7 +117,6 @@
               </tr>
             </thead>
             <tbody id="table-body">
-              <!-- Populated via js/admin.js -->
             </tbody>
           </table>
         </div>
@@ -134,7 +125,6 @@
     </div>
   </main>
 
-  <!-- Create/Edit Form Modal -->
   <div class="modal-backdrop" id="article-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -154,7 +144,7 @@
           <div class="form-group">
             <label for="form-category">Category</label>
             <select id="form-category" class="form-control" required>
-              <!-- Populated dynamically -->
+              
             </select>
           </div>
           <div class="form-group">
@@ -177,7 +167,6 @@
           </div>
         </div>
 
-        <!-- Cover Image Input (File selector + URL toggle) -->
         <div class="form-group">
           <label>Cover Image (Select local file OR enter Unsplash/Image URL)</label>
           <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -212,16 +201,14 @@
     </div>
   </div>
 
-  <!-- Shared Footer (reused via main.js) -->
   <footer></footer>
 
-  <!-- Scripts -->
   <script src="../js/data.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/admin.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Injects SVGs inside buttons/search box
+    
       document.getElementById("search-icon-holder").innerHTML = window.getIconSvg("search");
       document.getElementById("plus-icon-holder").innerHTML = window.getIconSvg("plus", "#FFFFFF");
     });

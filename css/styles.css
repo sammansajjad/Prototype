@@ -1,14 +1,13 @@
-/* Human Appeal Pakistan - Stylesheet */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Brand Guidelines Colors */
+ 
   --ha-purple: #7332AA;
   --ha-lilac: #8269BE;
   --ha-dark-purple: #37145A;
   
-  /* Accent Colors (Used sparingly) */
   --ha-red: #E10032;
   --ha-orange: #F08C00;
   --ha-light-blue: #64B4E6;
@@ -18,7 +17,6 @@
   --ha-lime: #C8D700;
   --ha-blue: #465AC8;
 
-  /* Theme-specific Colors (Flat Light Theme) */
   --bg-color: #FFFFFF;
   --bg-secondary: #F8F9FA;
   --text-color: var(--ha-dark-purple);
@@ -31,7 +29,6 @@
   --input-bg: #FFFFFF;
   --input-border: #D1D5DB;
   
-  /* Transition Constants */
   --transition-speed: 0.3s;
 }
 
@@ -65,7 +62,6 @@ a {
   transition: color var(--transition-speed);
 }
 
-/* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   color: var(--text-color);
@@ -76,7 +72,6 @@ h1 { font-size: 2.5rem; }
 h2 { font-size: 2rem; margin-bottom: 1.5rem; position: relative; }
 h3 { font-size: 1.5rem; }
 
-/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -123,7 +118,6 @@ h3 { font-size: 1.5rem; }
   color: #FFFFFF;
 }
 
-/* Header & Navigation */
 header {
   position: sticky;
   top: 0;
@@ -203,7 +197,6 @@ header {
   transition: all var(--transition-speed);
 }
 
-/* Hero Section */
 .hero {
   position: relative;
   background-color: var(--ha-dark-purple);

@@ -1,25 +1,19 @@
-// Human Appeal Pakistan - Main JavaScript Manager
+
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Render Shared Elements (Header and Footer)
-  renderHeaderFooter();
 
-  // 2. Setup Navigation Active States & Mobile Burger Menu
+  renderHeaderFooter();
   setupNavigation();
 
-  // 3. Animate Stats Counters (if present)
   animateStats();
 
-  // 4. Handle Newsletter Form Submissions
   setupNewsletter();
 });
 
-// Inline Shared Header and Footer rendering
 function renderHeaderFooter() {
   const headerElement = document.querySelector("header");
   const footerElement = document.querySelector("footer");
   
-  // Detect folder nesting (for admin pages)
   const isInsideAdmin = window.location.pathname.includes("/admin/");
   const pathPrefix = isInsideAdmin ? "../" : "./";
   
@@ -144,7 +138,6 @@ function renderHeaderFooter() {
   }
 }
 
-// Navigation Helpers
 function setupNavigation() {
   const burgerBtn = document.getElementById("burger-menu");
   const navMenu = document.getElementById("nav-menu");
@@ -157,7 +150,6 @@ function setupNavigation() {
     });
   }
 
-  // Set active class on nav links
   const links = document.querySelectorAll(".nav-link");
   const pathname = window.location.pathname;
   let activeFound = false;
@@ -185,7 +177,6 @@ function setupNavigation() {
   }
 }
 
-// Animated stats bar logic
 function animateStats() {
   const stats = document.querySelectorAll(".stat-number");
   if (stats.length === 0) return;
@@ -196,8 +187,8 @@ function animateStats() {
         const target = entry.target;
         const targetVal = parseInt(target.getAttribute("data-target"));
         let current = 0;
-        const duration = 1500; // ms
-        const increment = targetVal / (duration / 16); // ~60fps
+        const duration = 1500; 
+        const increment = targetVal / (duration / 16); 
         
         const count = () => {
           current += increment;
@@ -217,7 +208,6 @@ function animateStats() {
   stats.forEach(stat => observer.observe(stat));
 }
 
-// Newsletter setup
 function setupNewsletter() {
   const form = document.getElementById("newsletter-form");
   if (!form) return;
@@ -232,7 +222,6 @@ function setupNewsletter() {
   });
 }
 
-// Toast helper function
 window.showToast = function(message, type = "success") {
   let container = document.getElementById("toast-container");
   if (!container) {
@@ -267,7 +256,6 @@ window.showToast = function(message, type = "success") {
   }, 3000);
 };
 
-// Global Icon Injector Utility (Returns inline outline SVG paths based on keys)
 window.getIconSvg = function(key, accentColor = "") {
   const strokeColor = accentColor ? accentColor : "currentColor";
   const iconMap = {
