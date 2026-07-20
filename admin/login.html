@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | Human Appeal Pakistan</title>
+  <meta name="description" content="Secure administrative login portal for the Human Appeal Pakistan web content prototype.">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body style="min-height: 100vh; display: flex; flex-direction: column; background-color: var(--bg-secondary);">
+
+  <!-- Shared Header Navbar -->
+  <header></header>
+
+  <main style="flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 40px 20px;">
+    <div class="admin-login-card">
+      <div style="text-align: center; margin-bottom: 25px;">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style="width: 80px; height: 80px; fill: var(--ha-purple); margin-bottom: 10px;">
+          <g transform="rotate(-45 56 56)" fill="currentColor" font-family="'Outfit', sans-serif" font-weight="900">
+            <rect x="32" y="15" width="16" height="50" rx="2" />
+            <rect x="64" y="15" width="16" height="50" rx="2" />
+            <rect x="48" y="32" width="16" height="16" />
+            <circle cx="72" cy="2" r="9" />
+            <text x="56" y="79" text-anchor="middle" font-size="11.5" letter-spacing="0.5">HUMAN</text>
+            <text x="56" y="92" text-anchor="middle" font-size="11.5" letter-spacing="0.5">APPEAL</text>
+          </g>
+        </svg>
+        <h2>Portal Login</h2>
+        <p style="color:var(--text-muted); font-size:0.9rem;">Please enter administrative credentials</p>
+      </div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" class="form-control" placeholder="E.g. admin" required autofocus autocomplete="username">
+        </div>
+        <div class="form-group" style="margin-bottom: 25px;">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="E.g. admin123" required autocomplete="current-password">
+        </div>
+        
+        <button type="submit" class="btn btn-secondary" style="width: 100%; font-size:1.05rem; padding:12px;">Login Securely</button>
+      </form>
+      
+      <div style="text-align: center; margin-top: 20px; font-size: 0.8rem; color: var(--text-muted);">
+        <span>Demo Credentials: <code>admin</code> / <code>admin123</code></span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Shared Footer -->
+  <footer></footer>
+
+  <!-- Scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Redirect if already logged in
+      if (localStorage.getItem("ha_admin_session") === "active") {
+        window.location.href = "./dashboard.html";
+      }
+
+      const form = document.getElementById("login-form");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        const user = document.getElementById("username").value;
+        const pass = document.getElementById("password").value;
+
+        if (user === "admin" && pass === "admin123") {
+          localStorage.setItem("ha_admin_session", "active");
+          window.showToast("Access Granted. Redirecting to Admin Dashboard...", "success");
+          setTimeout(() => {
+            window.location.href = "./dashboard.html";
+          }, 1000);
+        } else {
+          window.showToast("Invalid credentials. Try admin / admin123.", "error");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

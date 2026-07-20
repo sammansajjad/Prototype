@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    // Blocking route guard to prevent flashing of admin contents
+    if (localStorage.getItem("ha_admin_session") !== "active") {
+      window.location.href = "./login.html";
+    }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Human Appeal Pakistan</title>
+  <meta name="description" content="Administrative control panel for managing project categories and articles.">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="admin-body">
+
+  <!-- Shared Header Navbar (reused via main.js) -->
+  <header></header>
+
+  <!-- Admin Sub Navigation Bar -->
+  <div class="admin-nav">
+    <div class="container admin-nav-container">
+      <h2 style="color: #FFFFFF; font-size: 1.4rem;">Administrative Portal</h2>
+      <button onclick="adminLogout()" class="btn btn-primary" style="padding: 6px 15px; font-size: 0.9rem;">Logout</button>
+    </div>
+  </div>
+
+  <!-- Dashboard Container -->
+  <main class="container">
+    <div class="admin-dashboard-layout">
+      
+      <!-- Sidebar -->
+      <aside class="admin-sidebar">
+        <ul class="admin-sidebar-menu">
+          <li>
+            <a href="#" class="admin-sidebar-link active">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="10" rx="1"/><rect width="7" height="5" x="3" y="14" rx="1"/></svg>
+              <span>Manage Stories</span>
+            </a>
+          </li>
+          <li>
+            <a href="../index.html" class="admin-sidebar-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <span>View Website</span>
+            </a>
+          </li>
+        </ul>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-color); font-size: 0.8rem; color: var(--text-muted);">
+          <p>Logged in as: <strong>Admin</strong></p>
+          <p style="margin-top: 5px;">Human Appeal Pakistan</p>
+        </div>
+      </aside>
+
+      <!-- Main Panel -->
+      <section class="admin-main" style="padding: 0;">
+        <h2 style="font-size: 1.6rem; margin-bottom: 25px; padding: 30px 30px 0;">Project Stories & Articles</h2>
+        
+        <!-- Metrics Counters -->
+        <div class="admin-metrics" style="padding: 0 30px 20px;">
+          <div class="metric-card">
+            <div>
+              <div class="metric-value" id="metric-total">0</div>
+              <div class="metric-label">Total Stories</div>
+            </div>
+            <div style="color: var(--ha-purple); opacity:0.7;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/></svg>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div>
+              <div class="metric-value" id="metric-published">0</div>
+              <div class="metric-label">Published</div>
+            </div>
+            <div style="color: var(--ha-green); opacity:0.7;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div>
+              <div class="metric-value" id="metric-draft">0</div>
+              <div class="metric-label">Drafts</div>
+            </div>
+            <div style="color: var(--ha-orange); opacity:0.7;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="admin-actions-bar" style="padding: 0 30px 25px;">
+          <div class="search-filters">
+            <div style="position: relative; flex-grow: 1;">
+              <input type="text" id="search-input" class="form-control" placeholder="Search by title, author, description..." style="padding-left: 40px;">
+              <span style="position: absolute; left: 12px; top: 12px; color: var(--text-muted); width: 18px; height: 18px;" id="search-icon-holder"></span>
+            </div>
+            <select id="filter-category" class="form-control" style="width: auto; min-width: 180px;">
+              <!-- Populated dynamically -->
+            </select>
+            <select id="filter-status" class="form-control" style="width: auto; min-width: 140px;">
+              <option value="all">All Status</option>
+              <option value="published">Published</option>
+              <option value="draft">Draft</option>
+            </select>
+          </div>
+          <button class="btn btn-secondary" id="btn-add-article" style="white-space: nowrap; gap: 5px;">
+            <span style="width: 18px; height: 18px; display: inline-flex; align-items: center;" id="plus-icon-holder"></span>
+            <span>Add New Story</span>
+          </button>
+        </div>
+
+        <!-- Table Listing -->
+        <div class="table-responsive" style="padding: 0 30px 30px;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th style="width: 40%;">Title</th>
+                <th style="width: 25%;">Category</th>
+                <th style="width: 15%;">Date</th>
+                <th style="width: 10%;">Status</th>
+                <th style="width: 10%;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <!-- Populated via js/admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Create/Edit Form Modal -->
+  <div class="modal-backdrop" id="article-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Add New Project Story / Article</h3>
+        <button class="modal-close-btn" id="modal-close-x" aria-label="Close modal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      
+      <form id="article-form">
+        <div class="form-group">
+          <label for="form-title">Story / Project Title</label>
+          <input type="text" id="form-title" class="form-control" placeholder="E.g. Rebuilding Clean Water Wells in Swat" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="form-group">
+            <label for="form-category">Category</label>
+            <select id="form-category" class="form-control" required>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="form-status">Status</label>
+            <select id="form-status" class="form-control" required>
+              <option value="published">Published</option>
+              <option value="draft">Draft</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="form-group">
+            <label for="form-author">Author / Staff Name</label>
+            <input type="text" id="form-author" class="form-control" placeholder="E.g. Sadia Khan" required>
+          </div>
+          <div class="form-group">
+            <label for="form-date">Publish Date</label>
+            <input type="date" id="form-date" class="form-control" required>
+          </div>
+        </div>
+
+        <!-- Cover Image Input (File selector + URL toggle) -->
+        <div class="form-group">
+          <label>Cover Image (Select local file OR enter Unsplash/Image URL)</label>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <input type="file" id="form-cover-file" class="form-control" accept="image/*">
+            <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">- OR -</div>
+            <input type="url" id="form-cover-url" class="form-control" placeholder="E.g. https://images.unsplash.com/photo-...">
+          </div>
+          
+          <div class="image-preview-container">
+            <div class="image-preview">
+              <img id="preview-img" src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800" alt="Image preview">
+            </div>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">This is how the story cover image will render on the public website pages.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="form-excerpt">Short Summary / Excerpt</label>
+          <input type="text" id="form-excerpt" class="form-control" placeholder="Provide a brief one-line teaser of this story..." required>
+        </div>
+
+        <div class="form-group">
+          <label for="form-content">Full Story Body Content (Press enter twice for paragraphs)</label>
+          <textarea id="form-content" class="form-control" rows="8" placeholder="Write full details about project operations, beneficiaries, locations, and impact stats..." required style="resize: vertical; font-family: inherit;"></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="btn-cancel-form">Cancel</button>
+          <button type="submit" class="btn btn-secondary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Shared Footer (reused via main.js) -->
+  <footer></footer>
+
+  <!-- Scripts -->
+  <script src="../js/data.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/admin.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Injects SVGs inside buttons/search box
+      document.getElementById("search-icon-holder").innerHTML = window.getIconSvg("search");
+      document.getElementById("plus-icon-holder").innerHTML = window.getIconSvg("plus", "#FFFFFF");
+    });
+  </script>
+</body>
+</html>
