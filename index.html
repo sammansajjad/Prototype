@@ -110,12 +110,13 @@
   <script src="./js/main.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-   
+
       setupHeroSlideshow();
 
       renderProjectGrid();
 
       renderStatsBar();
+      initCounterAnimation();
       renderRecentArticles();
     });
 
@@ -197,11 +198,11 @@
     function renderStatsBar() {
       const container = document.getElementById("stats-container");
       const stats = [
-        { icon: "water", target: 250000, suffix: "+", label: "Helped with Clean Water" },
-        { icon: "livelihood", target: 180000, suffix: "+", label: "Supported with Food Security" },
-        { icon: "health", target: 90000, suffix: "+", label: "Supported with Health Care" },
-        { icon: "emergency", target: 120000, suffix: "+", label: "Assisted in Emergency Relief" },
-        { icon: "orphan", target: 500000, suffix: "+", label: "Lives Blessed in Pakistan (2025)" }
+        { icon: "livelihood", target: 443841, suffix: "+", label: "Food Security & Livelihood Assistance" },
+        { icon: "water", target: 201386, suffix: "+", label: "Supported through Water, Sanitation & Hygiene" },
+        { icon: "health", target: 40028, suffix: "+", label: "Received Healthcare & Nutrition Support" },
+        { icon: "emergency", target: 260315, suffix: "+", label: "Assisted in Disasters & Emergency Relief" },
+        { icon: "orphan", target: 10765, suffix: "+", label: "Reached with Shelter & Settlement Assistance" }
       ];
 
       container.innerHTML = "";
@@ -216,6 +217,39 @@
         `;
         container.appendChild(item);
       });
+    }
+
+    // Animates each .stat-number independently, using its own
+    // data-target and data-suffix, when it scrolls into view.
+    function initCounterAnimation() {
+      const counters = document.querySelectorAll(".stat-number");
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const target = entry.target;
+            const targetVal = parseInt(target.getAttribute("data-target"));
+            const suffix = target.getAttribute("data-suffix") || "";
+            let current = 0;
+            const duration = 1000;
+            const increment = targetVal / (duration / 16);
+
+            const count = () => {
+              current += increment;
+              if (current < targetVal) {
+                target.innerText = Math.ceil(current).toLocaleString();
+                requestAnimationFrame(count);
+              } else {
+                target.innerText = targetVal.toLocaleString() + suffix;
+              }
+            };
+            count();
+            observer.unobserve(target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      counters.forEach(counter => observer.observe(counter));
     }
 
     function renderRecentArticles() {
