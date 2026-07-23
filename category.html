@@ -25,11 +25,11 @@
           
           <div>
             <h2 id="category-section-title">Project Stories & Impact Reports</h2>
-            <div class="articles-grid" id="category-articles-container" style="grid-template-columns: repeat(2, 1fr); gap: 30px;">
+            <div class="articles-grid" id="category-articles-container">
               
             </div>
             
-            <div class="load-more-container" id="load-more-container" style="display: none;">
+            <div class="load-more-container" id="load-more-container" >
               <button class="btn btn-outline" id="load-more-btn" style="border-color: var(--banner-color, var(--ha-purple)); color: var(--banner-color, var(--ha-purple));">
                 Load More Stories
               </button>
@@ -37,7 +37,7 @@
           </div>
 
           <div class="article-sidebar">
-            <div class="sidebar-widget" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 30px; margin-bottom: 30px; box-shadow: var(--card-shadow);">
+            <div class="sidebar-widget sidebar-widget-featured" >
               <h3 id="widget-title" style="color: var(--banner-color, var(--ha-purple)); margin-bottom: 15px;">Sector Stories</h3>
               <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px;">Read all field updates in this sector, or contact us to find out how you can support our local teams.</p>
               <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -159,9 +159,9 @@
       });
 
       if (filteredArticles.length > visibleCount) {
-        loadMoreContainer.style.display = "block";
+        loadMoreContainer.classList.remove("hidden");
       } else {
-        loadMoreContainer.style.display = "none";
+        loadMoreContainer.classList.add("hidden");
       }
     }
   </script>
