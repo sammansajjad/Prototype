@@ -1,5 +1,3 @@
-
-
 const CATEGORY_COLORS = {
   "Emergency Relief": "#E10032",
   "Water & Sanitation": "#64B4E6",
@@ -155,7 +153,6 @@ const SEED_ARTICLES = [
   }
 ];
 
-
 function seedData() {
   if (!localStorage.getItem("ha_articles")) {
     localStorage.setItem("ha_articles", JSON.stringify(SEED_ARTICLES));
@@ -164,7 +161,6 @@ function seedData() {
 }
 
 seedData();
-
 
 const DataManager = {
   getArticles(includeDrafts = false) {
@@ -198,7 +194,7 @@ const DataManager = {
     const articles = this.getArticles(true);
     const index = articles.findIndex(a => a.id === id);
     if (index === -1) return false;
-    
+
     articles[index] = {
       ...articles[index],
       ...updatedData
@@ -212,7 +208,7 @@ const DataManager = {
     const originalLength = articles.length;
     articles = articles.filter(a => a.id !== id);
     if (articles.length === originalLength) return false;
-    
+
     localStorage.setItem("ha_articles", JSON.stringify(articles));
     return true;
   },

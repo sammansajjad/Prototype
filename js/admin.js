@@ -1,10 +1,8 @@
-
 if (localStorage.getItem("ha_admin_session") !== "active") {
   window.location.href = "./login.html";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
   initDashboard();
 });
 
@@ -21,7 +19,7 @@ function initDashboard() {
   document.getElementById("btn-add-article").addEventListener("click", () => openArticleModal());
   document.getElementById("modal-close-x").addEventListener("click", closeArticleModal);
   document.getElementById("btn-cancel-form").addEventListener("click", closeArticleModal);
-  
+
   document.getElementById("article-form").addEventListener("submit", handleFormSubmit);
 
   const coverUrlInput = document.getElementById("form-cover-url");
@@ -31,7 +29,7 @@ function initDashboard() {
   coverUrlInput.addEventListener("input", (e) => {
     if (e.target.value) {
       previewImg.src = e.target.value;
-      base64ImageString = ""; 
+      base64ImageString = "";
       fileInput.value = "";
     } else {
       previewImg.src = "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800";
@@ -45,12 +43,13 @@ function initDashboard() {
       reader.onload = (event) => {
         base64ImageString = event.target.result;
         previewImg.src = base64ImageString;
-        coverUrlInput.value = ""; 
+        coverUrlInput.value = "";
       };
       reader.readAsDataURL(file);
     }
   });
 }
+
 function refreshDashboard() {
   updateMetrics();
 
@@ -72,7 +71,7 @@ function updateMetrics() {
 
 function populateCategorySelects() {
   const categories = Object.keys(window.DataManager.getCategoriesInfo());
-  
+
   const filterSelect = document.getElementById("filter-category");
   const formSelect = document.getElementById("form-category");
 
@@ -103,9 +102,11 @@ function filterAndRenderTable() {
   if (categoryFilter !== "all") {
     articles = articles.filter(art => art.category === categoryFilter);
   }
+
   if (statusFilter !== "all") {
     articles = articles.filter(art => art.status === statusFilter);
   }
+
   const tbody = document.getElementById("table-body");
   tbody.innerHTML = "";
 
@@ -153,7 +154,7 @@ function openArticleModal(article = null) {
   if (article) {
     currentEditId = article.id;
     modalTitle.innerText = "Edit Project Story / Article";
-    
+
     document.getElementById("form-title").value = article.title;
     document.getElementById("form-category").value = article.category;
     document.getElementById("form-author").value = article.author;
@@ -196,7 +197,7 @@ function handleFormSubmit(e) {
 
   const coverUrl = document.getElementById("form-cover-url").value.trim();
   let coverImage = coverUrl || "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800";
-  
+
   if (base64ImageString) {
     coverImage = base64ImageString;
   }
@@ -213,7 +214,6 @@ function handleFormSubmit(e) {
   };
 
   if (currentEditId) {
-    
     const success = window.DataManager.updateArticle(currentEditId, articleData);
     if (success) {
       window.showToast("Story updated successfully!", "success");
@@ -221,7 +221,6 @@ function handleFormSubmit(e) {
       window.showToast("Failed to update story.", "error");
     }
   } else {
-
     window.DataManager.addArticle(articleData);
     window.showToast("New story published successfully!", "success");
   }

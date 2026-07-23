@@ -1,8 +1,6 @@
-
-
 document.addEventListener("DOMContentLoaded", () => {
-
   renderHeaderFooter();
+
   setupNavigation();
 
   animateStats();
@@ -13,10 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
 function renderHeaderFooter() {
   const headerElement = document.querySelector("header");
   const footerElement = document.querySelector("footer");
-  
-  const isInsideAdmin = window.location.pathname.includes("/admin/");
+
+  const pathname = window.location.pathname;
+  const isInsideAdmin = pathname.endsWith("/admin/dashboard.html") || 
+                        pathname.endsWith("/admin/login.html") ||
+                        pathname.endsWith("/admin/dashboard") ||
+                        pathname.endsWith("/admin/login") ||
+                        pathname.includes("/admin/dashboard.html") ||
+                        pathname.includes("/admin/login.html");
   const pathPrefix = isInsideAdmin ? "../" : "./";
-  
+
+  const isAboutPage = pathname.includes("about.html") || pathname.endsWith("/about");
+
   if (headerElement) {
     headerElement.innerHTML = `
       <div class="container">
@@ -39,7 +45,7 @@ function renderHeaderFooter() {
             <li><a href="${pathPrefix}about.html" class="nav-link" data-page="about">About Us</a></li>
             <li><a href="${pathPrefix}categories.html" class="nav-link" data-page="categories">Our Projects</a></li>
             <li><a href="${pathPrefix}news.html" class="nav-link" data-page="news">News & Blogs</a></li>
-            <li><a href="${pathPrefix}about.html#contact-section" class="nav-link" data-page="contact">Contact</a></li>
+            <li><a href="${pathPrefix}contact.html" class="nav-link" data-page="contact">Contact</a></li>
           </ul>
 
           <div class="nav-actions">
@@ -55,9 +61,24 @@ function renderHeaderFooter() {
   }
 
   if (footerElement) {
+    const newsletterHtml = isAboutPage ? "" : `
+          <div class="footer-col">
+            <h4>Newsletter</h4>
+            <p style="opacity: 0.8; font-size: 0.9rem; margin-bottom: 15px;">Subscribe to stay updated on our emergency operations and campaigns.</p>
+            <form class="newsletter-form" id="newsletter-form">
+              <input type="email" placeholder="Your Email Address" required aria-label="Email Address">
+              <button type="submit" class="btn btn-secondary">Subscribe</button>
+            </form>
+          </div>
+    `;
+
+    const footerGridStyle = isAboutPage 
+      ? 'display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 50px; margin-bottom: 50px;' 
+      : 'display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 50px; margin-bottom: 50px;';
+
     footerElement.innerHTML = `
       <div class="container">
-        <div class="footer-grid">
+        <div class="footer-grid" style="${footerGridStyle}">
           <div class="footer-about">
             <div class="footer-logo">
               <a href="${pathPrefix}index.html" style="display: flex; align-items: center; gap: 5px;">
@@ -78,13 +99,13 @@ function renderHeaderFooter() {
               <a href="https://www.facebook.com/HumanAppeal.Pakistan/" class="social-icon" target="_blank" aria-label="Facebook">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
               </a>
-              <a href="https://x.com/HumanAppealPK" class="social-icon" target="_blank" aria-label="Twitter">
+              <a href="https://twitter.com/HumanAppeal" class="social-icon" target="_blank" aria-label="Twitter">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
               </a>
               <a href="https://www.instagram.com/humanappealpk/" class="social-icon" target="_blank" aria-label="Instagram">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
               </a>
-              <a href="https://www.youtube.com/c/humanappealpakistan" class="social-icon" target="_blank" aria-label="YouTube">
+              <a href="https://www.youtube.com/@HumanAppealPakistan" class="social-icon" target="_blank" aria-label="YouTube">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17z"/><path d="m10 15 5-3-5-3z"/></svg>
               </a>
             </div>
@@ -97,7 +118,7 @@ function renderHeaderFooter() {
               <li><a href="${pathPrefix}about.html">About Us</a></li>
               <li><a href="${pathPrefix}categories.html">Our Projects</a></li>
               <li><a href="${pathPrefix}news.html">News & Blogs</a></li>
-             
+              <li><a href="${pathPrefix}contact.html">Contact Us</a></li>
             </ul>
           </div>
 
@@ -106,7 +127,7 @@ function renderHeaderFooter() {
             <ul class="footer-contact-info">
               <li>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span> Farm House 4-4, Street 11, Chak Shahzad Farms, Islamabad</span>
+                <span>Plot 12-A, Park Road, Chak Shahzad, Islamabad, Pakistan</span>
               </li>
               <li>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -119,6 +140,7 @@ function renderHeaderFooter() {
             </ul>
           </div>
 
+          ${newsletterHtml}
         </div>
         
         <div class="footer-bottom">
@@ -133,7 +155,7 @@ function renderHeaderFooter() {
 function setupNavigation() {
   const burgerBtn = document.getElementById("burger-menu");
   const navMenu = document.getElementById("nav-menu");
-  
+
   if (burgerBtn && navMenu) {
     burgerBtn.addEventListener("click", () => {
       const expanded = burgerBtn.getAttribute("aria-expanded") === "true" || false;
@@ -169,7 +191,7 @@ function setupNavigation() {
   }
 }
 
-function animateStats() {
+window.animateStats = function() {
   const stats = document.querySelectorAll(".stat-number");
   if (stats.length === 0) return;
 
@@ -179,9 +201,9 @@ function animateStats() {
         const target = entry.target;
         const targetVal = parseInt(target.getAttribute("data-target"));
         let current = 0;
-        const duration = 1500; 
-        const increment = targetVal / (duration / 16); 
-        
+        const duration = 1500;
+        const increment = targetVal / (duration / 16);
+
         const count = () => {
           current += increment;
           if (current < targetVal) {
@@ -198,12 +220,16 @@ function animateStats() {
   }, { threshold: 0.1 });
 
   stats.forEach(stat => observer.observe(stat));
+};
+
+function animateStats() {
+  window.animateStats();
 }
 
 function setupNewsletter() {
   const form = document.getElementById("newsletter-form");
   if (!form) return;
-  
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const emailInput = form.querySelector("input[type='email']");
@@ -222,24 +248,24 @@ window.showToast = function(message, type = "success") {
     container.className = "toast-container";
     document.body.appendChild(container);
   }
-  
+
   const toast = document.createElement("div");
   toast.className = `toast toast-${type}`;
-  
+
   let icon = "";
   if (type === "success") {
     icon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
   } else {
     icon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-triangle"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>`;
   }
-  
+
   toast.innerHTML = `
     ${icon}
     <span>${message}</span>
   `;
-  
+
   container.appendChild(toast);
-  
+
   setTimeout(() => {
     toast.remove();
     if (container.children.length === 0) {
