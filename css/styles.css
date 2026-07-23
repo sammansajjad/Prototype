@@ -1419,3 +1419,7 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+.category-articles-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
