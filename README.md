@@ -1,21 +1,21 @@
-
-
 ```md
 # Human Appeal Pakistan Website
 
-A responsive humanitarian charity website built for **Human Appeal Pakistan** to showcase their mission, projects, impact stories, news, and community initiatives.
+A responsive humanitarian charity website developed for **Human Appeal Pakistan** to showcase their mission, projects, impact stories, news updates, and community initiatives.
 
 ## Features
 
-- 🏠 Modern homepage with hero slideshow
-- 📊 Animated impact statistics
-- 🌍 Humanitarian project categories
-- 📰 News and articles section
-- 📖 About Us page with mission, vision, and values
-- 📩 Contact inquiry form
-- 🔐 Admin management system using JavaScript
-- 🎨 Dynamic category-based content rendering
-- 📱 Fully responsive design
+- Responsive and modern charity website design
+- Hero section with dynamic slideshow
+- Animated impact statistics
+- Humanitarian project categories
+- News and articles section
+- Project stories and impact reports
+- About Us page with mission, vision, and values
+- Contact inquiry form
+- JavaScript-based admin management panel
+- Dynamic content rendering
+- Mobile-friendly layout
 
 ## Technologies Used
 
@@ -51,25 +51,56 @@ Human-Appeal-Pakistan/
 │   └── admin.js
 │
 └── assets/
+└── images/
 
 ```
 
-## Pages
+## Website Pages
 
-- **Home** — Overview of humanitarian work and impact
-- **About Us** — Organization story, mission, vision, and values
-- **Categories** — Different humanitarian sectors and projects
-- **Category Details** — Individual category projects and stories
-- **News** — Latest updates and field stories
-- **Articles** — Detailed humanitarian articles and reports
-- **Contact** — Inquiry and communication page
-- **Admin Panel** — JavaScript-based content management interface
+### Public Pages
+
+**Home**
+- Organization overview
+- Hero section
+- Impact statistics
+- Featured sectors
+- Latest stories
+
+**About Us**
+- Organization history
+- Mission and vision
+- Core values
+- Leadership information
+
+**Categories**
+- Displays humanitarian sectors and projects
+
+**Category Details**
+- Shows individual project information, stories, and impact reports
+
+**News & Articles**
+- Latest updates
+- Humanitarian stories
+- Project progress reports
+
+**Contact**
+- Inquiry form
+- Organization contact information
+
+## Admin Panel
+
+The admin panel provides a JavaScript-based interface for managing website content, including:
+
+- Categories
+- Projects
+- News articles
+- Website data
 
 ## Purpose
 
-The website provides a digital platform to showcase humanitarian projects, share impact stories, improve transparency, and allow users to explore ways to support communities.
+The purpose of this project is to build a digital platform that highlights humanitarian work, improves awareness, shares community impact stories, and allows users to explore different support initiatives.
 
 ## Author
 
-Built as a web development project for a humanitarian organization website.
+Developed as a web development project for a humanitarian organization website.
 ```
