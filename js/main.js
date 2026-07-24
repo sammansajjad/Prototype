@@ -61,21 +61,33 @@ function renderHeaderFooter() {
   }
 
   if (footerElement) {
-    const newsletterHtml = isAboutPage ? "" : `
-          <div class="footer-col">
-            <h4>Newsletter</h4>
-            <p style="opacity: 0.8; font-size: 0.9rem; margin-bottom: 15px;">Subscribe to stay updated on our emergency operations and campaigns.</p>
-            <form class="newsletter-form" id="newsletter-form">
-              <input type="email" placeholder="Your Email Address" required aria-label="Email Address">
-              <button type="submit" class="btn btn-secondary">Subscribe</button>
-            </form>
-          </div>
-    `;
+   const newsletterHtml = `
+      <div class="footer-col">
 
-    const footerGridStyle = isAboutPage 
-      ? 'display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 50px; margin-bottom: 50px;' 
-      : 'display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 50px; margin-bottom: 50px;';
+        <h4>Newsletter</h4>
 
+        <p style="opacity: 0.8; font-size: 0.9rem; margin-bottom: 15px;">
+          Subscribe to stay updated on our emergency operations and campaigns.
+        </p>
+
+        <form class="newsletter-form" id="newsletter-form">
+
+          <input 
+          type="email" 
+          placeholder="Your Email Address" 
+          required 
+          aria-label="Email Address">
+
+          <button type="submit" class="btn btn-secondary">
+            Subscribe
+          </button>
+
+        </form>
+
+      </div>
+`;
+
+    const footerGridStyle ='display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 50px; margin-bottom: 50px;';
     footerElement.innerHTML = `
       <div class="container">
         <div class="footer-grid" style="${footerGridStyle}">
