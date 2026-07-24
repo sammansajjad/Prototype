@@ -12,9 +12,6 @@
     max-width: 800px;
     margin: 0 auto;
 }
-
-
-/* About Story Section */
 .about-split {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -37,17 +34,11 @@
     border-radius: 15px;
     object-fit: cover;
 }
-
-
-
-/* Mission Vision Values */
 .mvv-grid {
     display: grid;
     grid-template-columns: repeat(3,1fr);
     gap: 30px;
 }
-
-
 .mvv-card {
     background: var(--bg-color);
     padding: 30px;
@@ -56,24 +47,15 @@
     border: 1px solid var(--border-color);
     box-shadow: var(--card-shadow);
 }
-
-
 .mvv-icon {
     width: 60px;
     height: 60px;
     margin: auto;
     margin-bottom: 20px;
 }
-
-
 .mvv-card h3 {
     margin-bottom: 15px;
 }
-
-
-
-/* Work Section */
-
 .work-layout {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -81,23 +63,15 @@
     align-items: start;
     margin-bottom: 50px;
 }
-
-
 .work-title {
     margin-bottom: 20px;
     color: var(--ha-purple);
 }
-
-
-
 .process-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-
-
-
 .process-card {
 
     display: flex;
@@ -110,21 +84,13 @@
     border-radius: 12px;
 
 }
-
-
-
-.process-card h4 {
+process-card h4 {
     margin-bottom: 5px;
 }
-
-
 .process-card p {
     color: var(--text-muted);
     font-size: .95rem;
 }
-
-
-
 .process-number {
 
     font-weight:700;
@@ -132,9 +98,6 @@
     line-height:1;
 
 }
-
-
-
 .process-card.purple {
     border-left:4px solid var(--ha-purple);
 }
@@ -142,9 +105,6 @@
 .process-card.purple .process-number {
     color:var(--ha-purple);
 }
-
-
-
 .process-card.blue {
     border-left:4px solid var(--ha-light-blue);
 }
@@ -152,9 +112,6 @@
 .process-card.blue .process-number {
     color:var(--ha-light-blue);
 }
-
-
-
 .process-card.green {
     border-left:4px solid var(--ha-green);
 }
@@ -162,9 +119,6 @@
 .process-card.green .process-number {
     color:var(--ha-green);
 }
-
-
-
 .process-card.orange {
     border-left:4px solid var(--ha-orange);
 }
@@ -172,11 +126,6 @@
 .process-card.orange .process-number {
     color:var(--ha-orange);
 }
-
-
-
-/* Compliance Box */
-
 .compliance-box {
 
     background-color:var(--bg-secondary);
@@ -190,9 +139,6 @@
     box-shadow:var(--card-shadow);
 
 }
-
-
-
 .compliance-box h3 {
 
     margin-bottom:15px;
@@ -204,9 +150,6 @@
     padding-bottom:8px;
 
 }
-
-
-
 .compliance-box p {
 
     color:var(--text-muted);
@@ -214,9 +157,6 @@
     font-size:.9rem;
 
 }
-
-
-
 .compliance-list {
 
     display:flex;
@@ -228,9 +168,6 @@
     margin-top:20px;
 
 }
-
-
-
 .compliance-item {
 
     display:flex;
@@ -244,17 +181,11 @@
     font-weight:600;
 
 }
-
-
-
 .compliance-item:first-letter {
 
     color:var(--ha-green);
 
 }
-
-
-
 .audit-text {
 
     margin-top:25px;
@@ -266,19 +197,11 @@
     font-size:.82rem;
 
 }
-
-
-
-/* Stats Section */
-
 .stats-bar {
 
     padding:50px 0;
 
 }
-
-
-
 .stats-grid {
 
     display:grid;
@@ -288,25 +211,16 @@
     gap:25px;
 
 }
-
-
-
 .stat-item {
 
     text-align:center;
 
 }
-
-
-
 .stat-icon {
 
     margin-bottom:10px;
 
 }
-
-
-
 .stat-number {
 
     font-size:2rem;
@@ -316,19 +230,11 @@
     color:var(--ha-purple);
 
 }
-
-
-
 .stat-label {
 
     color:var(--text-muted);
 
 }
-
-
-
-/* Team Section */
-
 .team-grid {
 
     display:grid;
@@ -338,9 +244,6 @@
     gap:30px;
 
 }
-
-
-
 .team-card {
 
     background:var(--bg-color);
@@ -354,9 +257,6 @@
     box-shadow:var(--card-shadow);
 
 }
-
-
-
 .team-image img {
 
     width:100%;
@@ -366,9 +266,6 @@
     object-fit:cover;
 
 }
-
-
-
 .team-info {
 
     padding:20px;
@@ -376,19 +273,11 @@
     text-align:center;
 
 }
-
-
-
 .team-info h4 {
 
     margin-bottom:8px;
 
 }
-
-
-
-/* FAQ */
-
 .faq-container {
 
     max-width:800px;
@@ -402,9 +291,6 @@
     gap:15px;
 
 }
-
-
-
 .faq-item {
 
     background-color:var(--bg-color);
@@ -420,9 +306,6 @@
     transition:.3s;
 
 }
-
-
-
 .faq-item summary {
 
     font-weight:600;
@@ -438,9 +321,6 @@
     list-style:none;
 
 }
-
-
-
 .faq-arrow {
 
     font-size:1.2rem;
@@ -452,9 +332,6 @@
     transition:.3s;
 
 }
-
-
-
 .faq-item p {
 
     color:var(--text-muted);
@@ -468,11 +345,6 @@
     padding-top:10px;
 
 }
-
-
-
-/* Responsive Design */
-
 
 @media(max-width:1000px){
 
