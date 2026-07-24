@@ -73,7 +73,7 @@ This is a static site, so no build tools or dependencies are needed.
 
 1. Clone the repo:
    ```bash
-   git clone https://github.com/Fatimaaasaleem/Human-Appeal-Pakistan.git
+   git clone https://github.com/sammansajjad/Prototype.git
    ```
 2. Open `index.html` in your browser, or serve it locally:
    ```bash
