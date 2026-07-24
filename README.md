@@ -1,35 +1,33 @@
-```md
-# Human Appeal Pakistan Website
+# Human Appeal Pakistan — Charity Website
 
-A responsive humanitarian charity website developed for **Human Appeal Pakistan** to showcase their mission, projects, impact stories, news updates, and community initiatives.
+A responsive website built for **Human Appeal Pakistan**, a humanitarian charity, to showcase their mission, projects, impact stories, and news — plus a lightweight admin panel to manage all that content.
+
+Built with plain HTML, CSS, and JavaScript — no frameworks, no build step.
+
+---
 
 ## Features
 
-- Responsive and modern charity website design
+- Responsive, mobile-friendly design
 - Hero section with dynamic slideshow
 - Animated impact statistics
-- Humanitarian project categories
-- News and articles section
-- Project stories and impact reports
-- About Us page with mission, vision, and values
-- Contact inquiry form
-- JavaScript-based admin management panel
-- Dynamic content rendering
-- Mobile-friendly layout
+- Project categories organized by humanitarian sector
+- News & articles section with individual story pages
+- About page (mission, vision, values, leadership)
+- Contact form for inquiries
+- JS-based admin panel for managing categories, projects, and news
+- Dynamic content rendering (no backend required)
 
-## Technologies Used
+## Tech Stack
 
 - HTML5
 - CSS3
-- JavaScript
-- Responsive Web Design
+- Vanilla JavaScript
 
 ## Project Structure
 
 ```
-
 Human-Appeal-Pakistan/
-│
 ├── index.html
 ├── about.html
 ├── contact.html
@@ -51,56 +49,38 @@ Human-Appeal-Pakistan/
 │   └── admin.js
 │
 └── assets/
-└── images/
-
+    └── images/
 ```
 
-## Website Pages
+## Pages
 
-### Public Pages
-
-**Home**
-- Organization overview
-- Hero section
-- Impact statistics
-- Featured sectors
-- Latest stories
-
-**About Us**
-- Organization history
-- Mission and vision
-- Core values
-- Leadership information
-
-**Categories**
-- Displays humanitarian sectors and projects
-
-**Category Details**
-- Shows individual project information, stories, and impact reports
-
-**News & Articles**
-- Latest updates
-- Humanitarian stories
-- Project progress reports
-
-**Contact**
-- Inquiry form
-- Organization contact information
+| Page | Description |
+|---|---|
+| **Home** | Overview, hero slideshow, impact stats, featured sectors, latest stories |
+| **About** | Organization history, mission, vision, values, leadership |
+| **Categories** | Browse humanitarian sectors and their projects |
+| **Category Details** | Individual project info, stories, and impact reports |
+| **News & Articles** | Updates, humanitarian stories, project progress |
+| **Contact** | Inquiry form and contact info |
 
 ## Admin Panel
 
-The admin panel provides a JavaScript-based interface for managing website content, including:
+A JS-based interface (`/admin`) for managing site content without touching code directly — categories, projects, and news articles are all editable from here.
 
-- Categories
-- Projects
-- News articles
-- Website data
+## Getting Started
+
+This is a static site, so no build tools or dependencies are needed.
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/Fatimaaasaleem/Human-Appeal-Pakistan.git
+   ```
+2. Open `index.html` in your browser, or serve it locally:
+   ```bash
+   npx serve .
+   ```
 
 ## Purpose
 
-The purpose of this project is to build a digital platform that highlights humanitarian work, improves awareness, shares community impact stories, and allows users to explore different support initiatives.
+This project was built to give a humanitarian organization a digital platform to raise awareness, share community impact stories, and let visitors explore different support initiatives.
 
-## Author
-
-Developed as a web development project for a humanitarian organization website.
-```
