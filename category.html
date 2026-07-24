@@ -6,6 +6,7 @@
   <title>Category Projects | Human Appeal Pakistan</title>
   <meta name="description" content="View stories, project updates, and impact reports for specific humanitarian campaigns run by Human Appeal Pakistan.">
   <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/category.css">
 </head>
 <body>
 
@@ -22,39 +23,66 @@
     <section>
       <div class="container">
         <div class="article-layout">
-          
+
           <div>
-            <h2 id="category-section-title">Project Stories & Impact Reports</h2>
+            <h2 id="category-section-title">Project Stories &amp; Impact Reports</h2>
+
             <div class="articles-grid" id="category-articles-container">
-              
             </div>
-            
-            <div class="load-more-container" id="load-more-container" >
-              <button class="btn btn-outline" id="load-more-btn" style="border-color: var(--banner-color, var(--ha-purple)); color: var(--banner-color, var(--ha-purple));">
+
+            <div class="load-more-container" id="load-more-container">
+              <button class="btn btn-outline load-more-btn-theme" id="load-more-btn">
                 Load More Stories
               </button>
             </div>
+
           </div>
 
           <div class="article-sidebar">
-            <div class="sidebar-widget sidebar-widget-featured" >
-              <h3 id="widget-title" style="color: var(--banner-color, var(--ha-purple)); margin-bottom: 15px;">Sector Stories</h3>
-              <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px;">Read all field updates in this sector, or contact us to find out how you can support our local teams.</p>
-              <div style="display: flex; flex-direction: column; gap: 12px;">
-                <a href="./news.html" class="btn btn-primary" id="btn-vol" style="background-color: var(--banner-color, var(--ha-purple)); border-color: var(--banner-color, var(--ha-purple)); text-align: center; justify-content: center; width: 100%;">
+
+            <div class="sidebar-widget sidebar-widget-featured">
+
+              <h3 id="widget-title" class="widget-title-themed">
+                Sector Stories
+              </h3>
+
+              <p class="sidebar-widget-description">
+                Read all field updates in this sector, or contact us to find out how you can support our local teams.
+              </p>
+
+              <div class="sidebar-button-group">
+
+                <a href="./news.html"
+                   class="btn btn-primary sidebar-btn-themed"
+                   id="btn-vol">
                   Browse All Stories
                 </a>
-                <a href="./about.html#contact-section" class="btn btn-outline" id="btn-inq" style="border-color: var(--banner-color, var(--ha-purple)); color: var(--banner-color, var(--ha-purple)); text-align: center; justify-content: center; width: 100%;">
+
+                <a href="./about.html#contact-section"
+                   class="btn btn-outline sidebar-btn-outline-themed"
+                   id="btn-inq">
                   Submit an Inquiry
                 </a>
+
               </div>
+
             </div>
 
             <div class="sidebar-widget">
+
               <h4>Direct Office Impact</h4>
-              <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 15px;">Every project run under this category is verified, supervised, and audited by our Islamabad main office to ensure maximum transparency.</p>
-              <a href="./about.html#contact-section" class="article-card-link" style="font-size:0.95rem;">Contact Coordinator &rarr;</a>
+
+              <p class="sidebar-widget-text">
+                Every project run under this category is verified, supervised, and audited by our Islamabad main office to ensure maximum transparency.
+              </p>
+
+              <a href="./about.html#contact-section"
+                 class="article-card-link coordinator-link">
+                Contact Coordinator &rarr;
+              </a>
+
             </div>
+
           </div>
 
         </div>
@@ -66,11 +94,13 @@
 
   <script src="./js/data.js"></script>
   <script src="./js/main.js"></script>
+
   <script>
     let filteredArticles = [];
     let visibleCount = 4;
 
     document.addEventListener("DOMContentLoaded", () => {
+
       const urlParams = new URLSearchParams(window.location.search);
       const categoryName = urlParams.get("id");
 
@@ -78,54 +108,66 @@
         window.location.href = "./categories.html";
         return;
       }
+
       const catInfo = DataManager.getCategoriesInfo()[categoryName];
+
       if (!catInfo) {
         window.location.href = "./categories.html";
         return;
       }
 
       document.title = `${categoryName} Projects | Human Appeal Pakistan`;
+
       document.getElementById("category-title").innerText = categoryName;
       document.getElementById("category-desc").innerText = catInfo.description;
-      
+
       const bannerBg = document.getElementById("category-banner-bg");
       bannerBg.style.setProperty("--banner-color", catInfo.color);
       document.documentElement.style.setProperty("--banner-color", catInfo.color);
-      
+
       const btnVol = document.getElementById("btn-vol");
       const btnInq = document.getElementById("btn-inq");
       const wTitle = document.getElementById("widget-title");
-      
-      btnVol.style.backgroundColor = catInfo.color;
-      btnVol.style.borderColor = catInfo.color;
-      btnInq.style.color = catInfo.color;
-      btnInq.style.borderColor = catInfo.color;
-      wTitle.style.color = catInfo.color;
+      const loadMoreBtn = document.getElementById("load-more-btn");
+
+      btnVol.style.setProperty("--theme-color", catInfo.color);
+      btnInq.style.setProperty("--theme-color", catInfo.color);
+      wTitle.style.setProperty("--theme-color", catInfo.color);
+      loadMoreBtn.style.setProperty("--theme-color", catInfo.color);
 
       filteredArticles = DataManager.getArticlesByCategory(categoryName);
+
       renderCategoryArticles();
 
-      const loadMoreBtn = document.getElementById("load-more-btn");
       loadMoreBtn.addEventListener("click", () => {
         visibleCount += 4;
         renderCategoryArticles();
       });
+
     });
 
     function renderCategoryArticles() {
+
       const container = document.getElementById("category-articles-container");
       const loadMoreContainer = document.getElementById("load-more-container");
       const catColors = DataManager.getCategoryColors();
-      
+
       container.innerHTML = "";
 
       if (filteredArticles.length === 0) {
+
         container.innerHTML = `
-          <div style="grid-column: 1/-1; text-align: center; padding: 50px 0;">
-            <p style="color: var(--text-muted); font-size:1.1rem; margin-bottom:20px;">No articles or projects currently published in this category.</p>
-            <a href="./categories.html" class="btn btn-secondary">Browse Other Categories</a>
+          <div class="empty-category-state">
+            <p class="empty-category-message">
+              No articles or projects currently published in this category.
+            </p>
+
+            <a href="./categories.html" class="btn btn-secondary">
+              Browse Other Categories
+            </a>
           </div>
         `;
+
         loadMoreContainer.style.display = "none";
         return;
       }
@@ -134,28 +176,57 @@
       const catColor = catColors[filteredArticles[0].category] || "var(--ha-purple)";
 
       visibleSlice.forEach(art => {
+
         const card = document.createElement("div");
         card.className = "article-card";
+
         card.innerHTML = `
           <div class="article-card-image">
-            <span class="article-tag" style="background-color: ${catColor}">${art.category}</span>
-            <img src="${art.coverImage}" alt="${art.title}" onerror="this.src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800'">
+
+            <span class="article-tag"
+                  style="--tag-color:${catColor};">
+              ${art.category}
+            </span>
+
+            <img src="${art.coverImage}"
+                 alt="${art.title}"
+                 onerror="this.src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800'">
+
           </div>
+
           <div class="article-card-body">
+
             <div class="article-meta">
-              <span>By ${art.author}</span> &bull; <span>${new Date(art.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+              <span>By ${art.author}</span>
+              &bull;
+              <span>${new Date(art.date).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+              })}</span>
             </div>
+
             <h3>${art.title}</h3>
+
             <p>${art.excerpt}</p>
-            <a href="./article.html?id=${art.id}" class="article-card-link" style="color: ${catColor};">
+
+            <a href="./article.html?id=${art.id}"
+               class="article-card-link"
+               style="--link-color:${catColor};">
+
               <span>Read Story</span>
-              <span style="width:16px; height:16px; display:inline-flex; align-items:center;">
+
+              <span class="article-link-icon">
                 ${window.getIconSvg("arrowRight", catColor)}
               </span>
+
             </a>
+
           </div>
         `;
+
         container.appendChild(card);
+
       });
 
       if (filteredArticles.length > visibleCount) {
@@ -163,7 +234,9 @@
       } else {
         loadMoreContainer.classList.add("hidden");
       }
+
     }
   </script>
+
 </body>
 </html>

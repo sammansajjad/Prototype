@@ -6,95 +6,86 @@
   <title>News & Stories | Human Appeal Pakistan</title>
   <meta name="description" content="Read our latest news, blogs, and project updates detailing our humanitarian impact across Pakistan.">
   <link rel="stylesheet" href="./css/styles.css">
-  <style>
-    .news-filter-bar {
-      background-color: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 25px;
-      margin-bottom: 40px;
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
-    .search-wrapper {
-      position: relative;
-      flex-grow: 1;
-    }
-    .search-wrapper svg {
-      position: absolute;
-      left: 15px;
-      top: 13px;
-      width: 18px;
-      height: 18px;
-      stroke: var(--text-muted);
-    }
-    .search-wrapper input {
-      padding-left: 45px;
-    }
-    @media (max-width: 768px) {
-      .news-filter-bar {
-        flex-direction: column;
-        align-items: stretch;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="./css/news.css">
 </head>
 <body>
 
   <header></header>
 
   <main>
-    <section class="hero" style="padding: 60px 0;">
+
+    <section class="hero hero-news">
       <div class="hero-overlay"></div>
-      <div class="container hero-container" style="grid-template-columns: 1fr;">
-        <div class="hero-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+
+      <div class="container hero-container hero-container-single">
+        <div class="hero-content hero-content-centered">
           <h1>News & Project Stories</h1>
-          <p>Read detailed articles and field updates about our developmental and relief works directly from our coordinators on the ground.</p>
+          <p>
+            Read detailed articles and field updates about our developmental and
+            relief works directly from our coordinators on the ground.
+          </p>
         </div>
       </div>
     </section>
 
     <section>
       <div class="container">
-        
-      
+
         <div class="news-filter-bar">
+
           <div class="search-wrapper">
             <span id="search-icon-svg"></span>
-            <input type="text" id="news-search" class="form-control" placeholder="Search articles by title, author, or keyword...">
+
+            <input
+              type="text"
+              id="news-search"
+              class="form-control news-search-input"
+              placeholder="Search articles by title, author, or keyword..."
+            >
           </div>
-          
-          <select id="news-category-filter" class="form-control" style="width: auto; min-width: 200px;">
-          
+
+          <select
+            id="news-category-filter"
+            class="form-control news-category-filter"
+          >
           </select>
+
         </div>
 
-      
-        <div class="articles-grid" id="news-articles-grid" style="grid-template-columns: repeat(3, 1fr); gap: 30px;">
-        
+        <div
+          class="articles-grid news-articles-grid"
+          id="news-articles-grid"
+        >
         </div>
 
-        <div class="load-more-container" id="load-more-container" style="display: none;">
-          <button class="btn btn-outline" id="load-more-btn">Load More Stories</button>
+        <div
+          class="load-more-container news-load-more-container"
+          id="load-more-container"
+        >
+          <button class="btn btn-outline" id="load-more-btn">
+            Load More Stories
+          </button>
         </div>
 
       </div>
     </section>
+
   </main>
 
   <footer></footer>
 
   <script src="./js/data.js"></script>
   <script src="./js/main.js"></script>
+
   <script>
     let allArticles = [];
     let filteredArticles = [];
     let visibleCount = 6;
 
     document.addEventListener("DOMContentLoaded", () => {
-     
-      document.getElementById("search-icon-svg").innerHTML = window.getIconSvg("search");
+
+      document.getElementById("search-icon-svg").innerHTML =
+        window.getIconSvg("search");
 
       populateCategoryDropdown();
 
@@ -103,94 +94,164 @@
 
       renderArticles();
 
-      document.getElementById("news-search").addEventListener("input", filterArticles);
-      document.getElementById("news-category-filter").addEventListener("change", filterArticles);
-      
-      const loadMoreBtn = document.getElementById("load-more-btn");
-      loadMoreBtn.addEventListener("click", () => {
-        visibleCount += 3;
-        renderArticles();
-      });
+      document
+        .getElementById("news-search")
+        .addEventListener("input", filterArticles);
+
+      document
+        .getElementById("news-category-filter")
+        .addEventListener("change", filterArticles);
+
+      document
+        .getElementById("load-more-btn")
+        .addEventListener("click", () => {
+          visibleCount += 3;
+          renderArticles();
+        });
+
     });
 
     function populateCategoryDropdown() {
+
       const dropdown = document.getElementById("news-category-filter");
       const categories = Object.keys(DataManager.getCategoriesInfo());
-      
+
       dropdown.innerHTML = `<option value="all">All Sectors</option>`;
+
       categories.forEach(cat => {
         dropdown.innerHTML += `<option value="${cat}">${cat}</option>`;
       });
+
     }
 
     function filterArticles() {
-      const query = document.getElementById("news-search").value.toLowerCase();
-      const selectedCategory = document.getElementById("news-category-filter").value;
+
+      const query = document
+        .getElementById("news-search")
+        .value
+        .toLowerCase();
+
+      const selectedCategory =
+        document.getElementById("news-category-filter").value;
 
       filteredArticles = allArticles.filter(art => {
-        const matchesQuery = art.title.toLowerCase().includes(query) || 
-                             art.excerpt.toLowerCase().includes(query) || 
-                             art.author.toLowerCase().includes(query);
-        const matchesCategory = selectedCategory === "all" || art.category === selectedCategory;
-        
+
+        const matchesQuery =
+          art.title.toLowerCase().includes(query) ||
+          art.excerpt.toLowerCase().includes(query) ||
+          art.author.toLowerCase().includes(query);
+
+        const matchesCategory =
+          selectedCategory === "all" ||
+          art.category === selectedCategory;
+
         return matchesQuery && matchesCategory;
+
       });
 
       visibleCount = 6;
       renderArticles();
+
     }
 
     function renderArticles() {
+
       const grid = document.getElementById("news-articles-grid");
-      const loadMoreContainer = document.getElementById("load-more-container");
+      const loadMoreContainer =
+        document.getElementById("load-more-container");
+
       const catColors = DataManager.getCategoryColors();
-      
+
       grid.innerHTML = "";
 
       if (filteredArticles.length === 0) {
+
         grid.innerHTML = `
-          <div style="grid-column: 1/-1; text-align: center; padding: 50px 0;">
-            <p style="color: var(--text-muted); font-size:1.15rem;">No stories or updates found matching your search parameters.</p>
+          <div class="news-empty-state">
+            <p class="news-empty-message">
+              No stories or updates found matching your search parameters.
+            </p>
           </div>
         `;
-        loadMoreContainer.style.display = "none";
+
+        loadMoreContainer.classList.add("hidden");
         return;
+
       }
 
-      const visibleSlice = filteredArticles.slice(0, visibleCount);
+      const visibleSlice =
+        filteredArticles.slice(0, visibleCount);
 
       visibleSlice.forEach(art => {
-        const catColor = catColors[art.category] || "var(--ha-purple)";
+
+        const catColor =
+          catColors[art.category] || "var(--ha-purple)";
+
         const card = document.createElement("div");
         card.className = "article-card";
+
         card.innerHTML = `
           <div class="article-card-image">
-            <span class="article-tag" style="background-color: ${catColor}">${art.category}</span>
-            <img src="${art.coverImage}" alt="${art.title}" onerror="this.src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800'">
+
+            <span
+              class="article-tag"
+              style="--tag-color:${catColor};">
+              ${art.category}
+            </span>
+
+            <img
+              src="${art.coverImage}"
+              alt="${art.title}"
+              onerror="this.src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800'">
+
           </div>
+
           <div class="article-card-body">
+
             <div class="article-meta">
-              <span>By ${art.author}</span> &bull; <span>${new Date(art.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-            </div>
-            <h3>${art.title}</h3>
-            <p>${art.excerpt}</p>
-            <a href="./article.html?id=${art.id}" class="article-card-link" style="color: var(--ha-purple);">
-              <span>Read Story</span>
-              <span style="width:16px; height:16px; display:inline-flex; align-items:center;">
-                ${window.getIconSvg("arrowRight", "var(--ha-purple)")}
+              <span>By ${art.author}</span>
+              &bull;
+              <span>
+                ${new Date(art.date).toLocaleDateString('en-US',{
+                  month:'short',
+                  day:'numeric',
+                  year:'numeric'
+                })}
               </span>
+            </div>
+
+            <h3>${art.title}</h3>
+
+            <p>${art.excerpt}</p>
+
+            <a
+              href="./article.html?id=${art.id}"
+              class="article-card-link"
+              style="--link-color:var(--ha-purple);">
+
+              <span>Read Story</span>
+
+              <span class="article-link-icon">
+                ${window.getIconSvg("arrowRight","var(--ha-purple)")}
+              </span>
+
             </a>
+
           </div>
         `;
+
         grid.appendChild(card);
+
       });
 
       if (filteredArticles.length > visibleCount) {
-        loadMoreContainer.style.display = "block";
+        loadMoreContainer.classList.remove("hidden");
       } else {
-        loadMoreContainer.style.display = "none";
+        loadMoreContainer.classList.add("hidden");
       }
+
     }
   </script>
+
 </body>
 </html>
